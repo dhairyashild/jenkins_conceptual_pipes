@@ -1,0 +1,57 @@
+SIMPLE EXAMPLE OF USING catchError IN A JENKINS PIPELINE. catchError IS USED TO CATCH ANY ERRORS THAT OCCUR WITHIN A BLOCK OF CODE AND ALLOWS THE PIPELINE TO CONTINUE EXECUTING, RATHER THAN FAILING.
+
+JENKINS PIPELINE EXAMPLE WITH catchError
+
+
+GPT_EXAMPLE
+
+pipeline {
+    agent any
+
+        
+        stage('Test') {
+            steps {
+                
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    echo 'Running tests...'
+                    // Simulate a test command, replace this with actual test logi
+                    sh 'exit 1' // This command will fail
+                }
+                echo 'Continuing pipeline execution despite the error in tests...'
+            }
+        }
+
+
+
+
+
+PERPLEXITY_EXAMPLE
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                catchError(message: 'Build failed, but continuing...', buildResult: 'UNSTABLE') {
+                    sh 'exit 1' // Simulating a command that fails
+                }
+            }
+        }
+
+
+
+
+1)  catchError () 
+this also work
+
+2) catchError(hi)
+this is wrong
+
+3) You should use valid parameters like message, buildResult, and stageResult to customize the behavior of catchError. 
+  If you don't need customization, just use catchError() without any parameters.
+  
+  catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+    // Simulated failing command
+    sh 'exit 1'
+}
