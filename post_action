@@ -1,0 +1,49 @@
+stages{
+
+
+
+        stage('Deploy to Staging') {
+            steps {
+                sh "docker-compose -f docker-compose.yml down"
+                sh "docker-compose -f docker-compose.yml up -d"
+            }
+            post {
+                success {
+                    echo "Deployment to staging successful."
+                }
+                failure {
+                    echo "Deployment to staging failed."
+                }
+            }
+        }
+    }
+
+
+
+
+   post {
+        always {
+            echo 'Running cleanup tasks'
+            cleanWs()
+        }
+        success {
+            echo 'Pipeline completed successfully!'
+            // Example: Send Slack notification on success
+            slackSend channel: '#general', color: 'good', message: "Build ${env.BUILD_NUMBER} successful!"
+        }
+        failure {
+            echo 'Pipeline failed!'
+            // Example: Send Slack notification on failure
+            slackSend channel: '#general', color: 'danger', message: "Build ${env.BUILD_NUMBER} failed!"
+        }
+        unstable {
+            echo 'Pipeline unstable!'
+            slackSend channel: '#general', color: 'warning', message: "Build ${env.BUILD_NUMBER} unstable!"
+        }
+    }
+
+
+
+
+
+}
