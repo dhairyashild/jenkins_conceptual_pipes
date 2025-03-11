@@ -3,6 +3,10 @@ pipeline {
     agent {
         label 'docker'           // ###### if u gave this outside any stage like this line agent all jobs data saved on this label agent server
           }
+#   agent any               // select any agent
+#   agent none              // No global agent; agents are defined per stage
+#   agent { label 'w1 || w2 || w3' } // Use any of the three agents
+#   agent { label 'w1' } // Explicitly use agent w1
 
 
     tools{
@@ -18,7 +22,20 @@ pipeline {
             
         }
 
+          stage('Run on Any Agent') {
+            agent { label 'w1 || w2 || w3' }                               #### Use any of the three agents
+            steps {
+                echo "Running on any available agent: ${env.NODE_NAME}"        #### echo not need sh at start in jenkins but other commands run after sh
+                                                                               #### steps chya pudhe khalchi echo commands yavi mage ali tar run hot nahi 
+            }
+        }
 
+        stage('Run on Specific Agent (w1)') {
+            agent { label 'w1' } // Explicitly use agent w1
+            steps {
+                echo "Running on agent w1"
+            }
+        }
 
 
        stage("maven_build") {  
