@@ -1,0 +1,26 @@
+#### https://www.youtube.com/watch?v=hz6euJcq4r0 == Configure Email Notification In Jenkins | How To Send Email From Jenkins Pipeline
+
+1 ---gmail usrname and token(avhi stco gztl ibfx) get via- security- 2 step verifi 
+
+2-- email extension plugin
+
+3-- go in SYSTEM ----
+
+E mail notification
+
+
+a. Basic Email Notification
+SMTP Server: smtp.gmail.com
+Email Suffix: @gmail.com (default user email domain)
+SMTP Authentication: Enabled
+Username: Your Gmail address
+Password: Your Gmail password or App Password (for 2-factor authentication)
+Use TLS: Checked
+SMTP Port: 587
+Reply-To Address: Your email address
+Charset: UTF-8
+
+b. Extended Email Notification
+SMTP Server: smtp.gmail.com
+SMTP Dart 465 
+Use SSL: Checked
