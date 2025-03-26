@@ -1,0 +1,50 @@
+1. Using Sonar Scanner Directly for a Java Project
+
+
+
+pipeline {
+    agent any
+    environment {
+        SCANNER_HOME = tool 'sonar-scanner' // Define the Sonar Scanner tool
+    }
+    stages {
+        stage('Build') {
+            steps {
+                // Compile the Java project (e.g., using Maven or Gradle)
+                sh 'mvn clean package' // Example using Maven to build the project
+            }
+        }
+        stage('SONARQUBE ANALYSIS') {
+            steps {
+                withSonarQubeEnv('sonar') { // Use SonarQube environment configured in Jenkins
+                    sh "$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Bank -Dsonar.projectKey=Bank -Dsonar.sources=src/main/java -Dsonar.java.binaries=target/classes"
+                }
+            }
+        }
+    }
+}
+##############################################################################################################################################################
+2. Using Maven for SonarQube Analysis in a Java Project
+
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                // Compile the Java project
+                sh 'mvn clean package' // Build the project using Maven
+            }
+        }
+        stage('SONARQUBE ANALYSIS') {
+            steps {
+                withSonarQubeEnv('sonar') { // Use SonarQube environment configured in Jenkins
+                    sh 'mvn sonar:sonar' // Run Maven's Sonar plugin
+                }
+            }
+        }
+    }
+}
+
+
+
+
