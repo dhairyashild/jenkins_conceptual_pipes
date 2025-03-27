@@ -1,0 +1,27 @@
+pipeline{
+  agent any
+   environment{
+      SCANNER_HOME= tool "sonar-scanner"
+}
+stages{
+  stage("checkout code")
+    steps{
+      
+    }
+}
+  stage("maven build")
+    steps{
+      sh 'mvn clean package'
+    }
+}
+  stage("soanr scam")
+    steps{
+      withSonarQubeEnv("sonar-token"){
+        $SOANR_HOME/bin/sonar-scanner -Dsoanr.ProjectName=myproject \
+        -Dsoanr.projectKey=mykey \
+        -Dsoanr.java.binaries=target
+
+      }
+    }
+}
+}
