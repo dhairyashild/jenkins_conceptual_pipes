@@ -1,0 +1,19 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Hello') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+           stage('Hello1') {
+            steps {
+              build 'pipeline2-name'                        #########        build '    pipeline-name   ' 
+            }
+        }     
+    }
+}
+
+# upstream job  --- runs 1st , where build '   '   is given
+# downsteram job ---  runs after upsteram succeess , name given with build '  '
